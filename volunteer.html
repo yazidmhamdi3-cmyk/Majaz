@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مجاز | لوحة المتطوع</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        primary: '#6b21a8',
+                        primaryDark: '#4c1d95',
+                        secondary: '#fbbf24',
+                        bronze: '#cd7f32',
+                        silver: '#c0c0c0',
+                        gold: '#ffd700'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .medal-card { transition: all 0.4s ease; }
+        .medal-locked { filter: grayscale(1) opacity(0.3); }
+        .progress-glow { box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); }
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 min-h-screen">
+
+    <nav class="glass-nav sticky top-0 z-50 border-b border-slate-200 px-6 py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-passport text-3xl text-primary"></i>
+                <span class="text-2xl font-black text-primaryDark" data-i18n="logo">مجاز</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <select id="langSwitcher" onchange="changeLanguage(this.value)" class="bg-slate-100 border-none rounded-lg px-2 py-1 text-sm outline-none cursor-pointer font-bold">
+                    <option value="ar">العربية</option>
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                </select>
+                <button onclick="logout()" class="text-red-500 hover:bg-red-50 p-2 rounded-full transition">
+                    <i class="fa-solid fa-right-from-bracket text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="bg-gradient-to-r from-primaryDark to-primary rounded-[2.5rem] p-8 mb-10 text-white shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+            
+            <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-black mb-2">
+                        <span data-i18n="welcome">مرحباً،</span> <span id="userName">...</span>!
+                    </h1>
+                    <p class="text-purple-100 opacity-80" data-i18n="passport_desc">جواز سفرك التطوعي جاهز لتوثيق أثرك.</p>
+                </div>
+
+                <div class="flex gap-6 text-center">
+                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-3xl min-w-[120px] border border-white/20">
+                        <span class="block text-3xl font-black text-secondary" id="totalHours">0</span>
+                        <span class="text-xs font-bold uppercase tracking-widest opacity-70" data-i18n="hours_label">ساعة تطوع</span>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-3xl min-w-[120px] border border-white/20">
+                        <span class="block text-3xl font-black text-secondary" id="totalPoints">0</span>
+                        <span class="text-xs font-bold uppercase tracking-widest opacity-70" data-i18n="points_label">نقطة أثر</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 relative z-10">
+                <div class="flex justify-between mb-2 text-sm font-bold">
+                    <span id="currentLevelName" class="text-secondary">مستوى مبتدئ</span>
+                    <span id="nextLevelGoal">50 ساعة للميدالية البرونزية</span>
+                </div>
+                <div class="w-full bg-white/20 rounded-full h-4 overflow-hidden p-1">
+                    <div id="progressBar" class="bg-secondary h-full rounded-full progress-glow transition-all duration-1000" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-2xl font-black mb-6 flex items-center gap-3">
+            <i class="fa-solid fa-award text-secondary"></i>
+            <span data-i18n="achievements">الإنجازات والأوسمة</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div id="medal-b
