@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مجاز | مساحة العمل المتقدمة</title>
+    <title>مجاز | مساحة العمل (ترياق)</title>
+    <!-- الخطوط -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- الأيقونات -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- مكتبة الرسوم البيانية -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -58,10 +62,10 @@
         
         <div class="p-5 border-b border-slate-800">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-white font-bold border border-slate-700">ت</div>
+                <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-white font-bold border border-slate-700 text-lg">ت</div>
                 <div>
-                    <h3 id="orgNameSidebar" class="text-white font-semibold text-sm">جمعية ترياق</h3>
-                    <p class="text-xs text-slate-400 mt-0.5"><span class="w-2 h-2 rounded-full bg-emerald-500 inline-block mr-1 align-middle"></span> متصل</p>
+                    <h3 class="text-white font-semibold text-sm truncate w-32">ترياق</h3>
+                    <p class="text-xs text-slate-400 mt-0.5"><span class="w-2 h-2 rounded-full bg-emerald-500 inline-block mr-1 align-middle"></span> حساب موثق</p>
                 </div>
             </div>
         </div>
@@ -76,7 +80,7 @@
             </div>
             <div onclick="switchView('volunteers', this)" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/30 cursor-pointer">
                 <div class="flex items-center gap-3"><i class="fa-solid fa-users w-5 text-center text-slate-400"></i> المتقدمين</div>
-                <span class="bg-brand-600 text-white text-[10px] px-2 py-0.5 rounded-full font-bold" id="pendingBadge">2</span>
+                <span class="bg-brand-600 text-white text-[10px] px-2 py-0.5 rounded-full font-bold hidden" id="pendingBadge">0</span>
             </div>
         </nav>
 
@@ -109,6 +113,7 @@
         </header>
 
         <div class="flex-1 overflow-y-auto p-8 custom-scrollbar relative">
+            <!-- Skeleton Loader -->
             <div id="skeletonLoader" class="absolute inset-0 bg-surface z-10 p-8 hidden">
                 <div class="w-48 h-8 skeleton-box skeleton mb-8"></div>
                 <div class="grid grid-cols-4 gap-6 mb-8">
@@ -118,41 +123,43 @@
                 <div class="h-64 skeleton-box skeleton w-full"></div>
             </div>
 
-            <!-- لوحة القيادة -->
+            <!-- ====== الشاشة 1: لوحة القيادة ====== -->
             <div id="view-dashboard" class="view-section active">
                 <div class="mb-6">
                     <h1 class="text-2xl font-bold text-slate-800">مرحباً مجدداً، ترياق</h1>
-                    <p class="text-slate-500 mt-1">إليك نظرة تحليلية لأداء فرصك التطوعية.</p>
+                    <p class="text-slate-500 mt-1">إليك نظرة تحليلية لأداء فرصك التطوعية والإغاثية.</p>
                 </div>
+                
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-6">
                     <div class="premium-card p-5 flex justify-between items-start">
-                        <div><p class="text-xs font-semibold text-slate-500 mb-1">الفرص النشطة</p><h3 class="text-2xl font-bold text-slate-800" id="statActive">4</h3></div>
+                        <div><p class="text-xs font-semibold text-slate-500 mb-1">الفرص النشطة</p><h3 class="text-2xl font-bold text-slate-800" id="statActive">3</h3></div>
                         <div class="w-8 h-8 rounded bg-brand-50 flex items-center justify-center text-brand-600"><i class="fa-solid fa-briefcase"></i></div>
                     </div>
-                    <div class="premium-card p-5">
-                        <div class="flex justify-between items-start">
-                            <div><p class="text-xs font-semibold text-slate-500 mb-1">إجمالي الساعات</p><h3 class="text-2xl font-bold text-slate-800">480</h3></div>
-                            <div class="w-8 h-8 rounded bg-emerald-50 flex items-center justify-center text-emerald-600"><i class="fa-solid fa-clock"></i></div>
-                        </div>
+                    <div class="premium-card p-5 flex justify-between items-start">
+                        <div><p class="text-xs font-semibold text-slate-500 mb-1">إجمالي الساعات المعتمدة</p><h3 class="text-2xl font-bold text-slate-800">0</h3></div>
+                        <div class="w-8 h-8 rounded bg-emerald-50 flex items-center justify-center text-emerald-600"><i class="fa-solid fa-clock"></i></div>
                     </div>
                     <div class="premium-card p-5 flex justify-between items-start">
-                        <div><p class="text-xs font-semibold text-slate-500 mb-1">طلبات معلقة</p><h3 class="text-2xl font-bold text-slate-800" id="statPending">2</h3></div>
+                        <div><p class="text-xs font-semibold text-slate-500 mb-1">طلبات معلقة</p><h3 class="text-2xl font-bold text-slate-800" id="statPending">0</h3></div>
                         <div class="w-8 h-8 rounded bg-amber-50 flex items-center justify-center text-amber-600"><i class="fa-solid fa-inbox"></i></div>
                     </div>
                     <div class="premium-card p-5 flex justify-between items-start">
-                        <div><p class="text-xs font-semibold text-slate-500 mb-1">متطوعين مسجلين</p><h3 class="text-2xl font-bold text-slate-800">85</h3></div>
+                        <div><p class="text-xs font-semibold text-slate-500 mb-1">متطوعين مسجلين</p><h3 class="text-2xl font-bold text-slate-800">0</h3></div>
                         <div class="w-8 h-8 rounded bg-blue-50 flex items-center justify-center text-blue-600"><i class="fa-solid fa-users"></i></div>
                     </div>
                 </div>
+
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="premium-card p-6 lg:col-span-2">
-                        <h2 class="text-base font-bold text-slate-800 mb-4">نمو الساعات التطوعية (آخر 6 أشهر)</h2>
-                        <div class="h-64 w-full"><canvas id="impactChart"></canvas></div>
+                        <h2 class="text-base font-bold text-slate-800 mb-4">نمو الساعات التطوعية</h2>
+                        <div class="h-64 w-full flex items-center justify-center bg-slate-50 rounded-lg border border-dashed border-slate-200">
+                            <p class="text-slate-400 font-bold text-sm">ترياق: لا توجد بيانات كافية لعرض الرسم البياني بعد.</p>
+                        </div>
                     </div>
                     <div class="premium-card p-6 lg:col-span-1 flex flex-col">
-                        <h2 class="text-base font-bold text-slate-800 mb-4">نشاط سريع</h2>
+                        <h2 class="text-base font-bold text-slate-800 mb-4">إجراءات سريعة</h2>
                         <div class="flex-1 flex flex-col justify-center items-center text-center p-4 border-2 border-dashed border-slate-200 rounded-lg bg-slate-50">
-                            <div class="w-12 h-12 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center mb-3"><i class="fa-solid fa-bolt text-xl"></i></div>
+                            <div class="w-12 h-12 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center mb-3"><i class="fa-solid fa-plus text-xl"></i></div>
                             <h3 class="font-bold text-slate-700 mb-1">انشر فرصة جديدة</h3>
                             <button onclick="openDrawer()" class="mt-4 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold py-1.5 px-4 rounded-md text-xs shadow-sm transition">نشر الآن</button>
                         </div>
@@ -160,18 +167,19 @@
                 </div>
             </div>
 
-            <!-- إدارة الفرص -->
+            <!-- ====== الشاشة 2: إدارة الفرص ====== -->
             <div id="view-opportunities" class="view-section">
                 <div class="flex justify-between items-center mb-6">
                     <div><h1 class="text-2xl font-bold text-slate-800 mb-1">إدارة الفرص</h1></div>
                     <button onclick="openDrawer()" class="bg-brand-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-brand-700 transition shadow-sm flex items-center gap-2 text-sm"><i class="fa-solid fa-plus text-xs"></i> إضافة فرصة</button>
                 </div>
-                <div class="premium-card overflow-hidden w-full flex flex-col">
-                    <div class="overflow-x-auto pb-32">
+                
+                <div class="premium-card overflow-hidden w-full flex flex-col min-h-[400px]">
+                    <div class="overflow-x-auto pb-8">
                         <table class="w-full text-right text-sm">
                             <thead class="bg-slate-50 border-b border-slate-200 text-xs text-slate-500 font-semibold uppercase tracking-wider">
                                 <tr>
-                                    <th class="px-6 py-3">اسم الفرصة</th>
+                                    <th class="px-6 py-3">الفرصة</th>
                                     <th class="px-6 py-3">تاريخ النشر</th>
                                     <th class="px-6 py-3">المتقدمين</th>
                                     <th class="px-6 py-3">الحالة</th>
@@ -179,61 +187,91 @@
                                 </tr>
                             </thead>
                             <tbody id="oppsTableBody" class="divide-y divide-slate-100 bg-white text-slate-700">
+                                
+                                <!-- فرصة ترياق 1 -->
                                 <tr class="hover:bg-slate-50/50 transition group">
                                     <td class="px-6 py-4">
-                                        <div class="font-semibold text-slate-800">حملة قطرة حياة للتبرع بالدم</div>
-                                        <div class="text-xs text-slate-500 mt-0.5">رعاية صحية • 6 ساعات</div>
-                                    </td>
-                                    <td class="px-6 py-4 text-xs">18 ماي 2026</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-16 bg-slate-100 rounded-full h-1.5"><div class="bg-emerald-500 h-1.5 rounded-full" style="width: 80%"></div></div>
-                                            <span class="text-xs font-medium">16/20</span>
+                                        <div class="flex items-center gap-4">
+                                            <img src="https://images.unsplash.com/photo-1615461066841-6116e6e02410?auto=format&fit=crop&w=150&q=80" alt="تبرع بالدم" class="w-12 h-12 rounded-lg object-cover border border-slate-200 shadow-sm">
+                                            <div>
+                                                <div class="font-semibold text-slate-800">حملة قطرة حياة للتبرع بالدم</div>
+                                                <div class="text-xs text-slate-500 mt-0.5">رعاية صحية • 6 ساعات</div>
+                                            </div>
                                         </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-xs">منذ 3 أيام</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-2"><div class="w-16 bg-slate-100 rounded-full h-1.5"><div class="bg-emerald-500 h-1.5 rounded-full" style="width: 0%"></div></div><span class="text-xs font-medium">0/20</span></div>
                                     </td>
                                     <td class="px-6 py-4"><span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> نشط</span></td>
                                     <td class="px-6 py-4 text-center relative">
                                         <button onclick="toggleDropdown(this)" class="text-slate-400 hover:text-slate-700 p-1 rounded hover:bg-slate-100 transition"><i class="fa-solid fa-ellipsis"></i></button>
-                                        <div class="dropdown-menu">
-                                            <a href="#" class="block px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-brand-600"><i class="fa-solid fa-pen mr-2"></i> تعديل</a>
-                                            <a href="#" class="block px-4 py-2 text-xs text-red-600 hover:bg-red-50"><i class="fa-solid fa-trash mr-2"></i> إنهاء وحذف</a>
-                                        </div>
+                                        <div class="dropdown-menu"><a href="#" class="block px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-brand-600">تعديل</a></div>
                                     </td>
                                 </tr>
+
+                                <!-- فرصة ترياق 2 -->
+                                <tr class="hover:bg-slate-50/50 transition group">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <img src="https://images.unsplash.com/photo-1584308666744-24d5e4785db6?auto=format&fit=crop&w=150&q=80" alt="قافلة طبية" class="w-12 h-12 rounded-lg object-cover border border-slate-200 shadow-sm">
+                                            <div>
+                                                <div class="font-semibold text-slate-800">القافلة الطبية للقرى النائية</div>
+                                                <div class="text-xs text-slate-500 mt-0.5">قوافل وإغاثة • 8 ساعات</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-xs">منذ أسبوع</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-2"><div class="w-16 bg-slate-100 rounded-full h-1.5"><div class="bg-amber-500 h-1.5 rounded-full" style="width: 0%"></div></div><span class="text-xs font-medium">0/10</span></div>
+                                    </td>
+                                    <td class="px-6 py-4"><span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> نشط</span></td>
+                                    <td class="px-6 py-4 text-center relative">
+                                        <button onclick="toggleDropdown(this)" class="text-slate-400 hover:text-slate-700 p-1 rounded hover:bg-slate-100 transition"><i class="fa-solid fa-ellipsis"></i></button>
+                                        <div class="dropdown-menu"><a href="#" class="block px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-brand-600">تعديل</a></div>
+                                    </td>
+                                </tr>
+
+                                <!-- فرصة ترياق 3 -->
+                                <tr class="hover:bg-slate-50/50 transition group">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=150&q=80" alt="إسعافات أولية" class="w-12 h-12 rounded-lg object-cover border border-slate-200 shadow-sm">
+                                            <div>
+                                                <div class="font-semibold text-slate-800">دورة مسعف في كل بيت</div>
+                                                <div class="text-xs text-slate-500 mt-0.5">إسعاف وتدريب • 5 ساعات</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-xs">منذ شهر</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-2"><div class="w-16 bg-slate-100 rounded-full h-1.5"><div class="bg-slate-400 h-1.5 rounded-full" style="width: 0%"></div></div><span class="text-xs font-medium">0/25</span></div>
+                                    </td>
+                                    <td class="px-6 py-4"><span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> نشط</span></td>
+                                    <td class="px-6 py-4 text-center relative">
+                                        <button onclick="toggleDropdown(this)" class="text-slate-400 hover:text-slate-700 p-1 rounded hover:bg-slate-100 transition"><i class="fa-solid fa-ellipsis"></i></button>
+                                        <div class="dropdown-menu"><a href="#" class="block px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-brand-600">تعديل</a></div>
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- طلبات المتطوعين -->
+            <!-- ====== الشاشة 3: طلبات المتطوعين (فارغة تماماً) ====== -->
             <div id="view-volunteers" class="view-section">
                 <div class="flex justify-between items-center mb-6">
                     <div><h1 class="text-2xl font-bold text-slate-800 mb-1">مراجعة الطلبات</h1></div>
                 </div>
+                
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-5" id="applicantsGrid">
-                    <div class="premium-card p-5 relative overflow-hidden" id="req-1">
-                        <div class="absolute top-0 right-0 w-1 h-full bg-brand-500"></div>
-                        <div class="flex items-start gap-3 mb-4">
-                            <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold border border-slate-200">أ.م</div>
-                            <div class="flex-1"><h3 class="font-bold text-slate-800 text-sm">أحمد محمود</h3><p class="text-[11px] text-slate-500 mt-0.5">متقدم لـ: قطرة حياة</p></div>
-                            <div class="bg-yellow-50 text-yellow-600 text-[10px] font-bold px-2 py-0.5 rounded border border-yellow-200"><i class="fa-solid fa-medal mr-1"></i> ذهبي</div>
-                        </div>
-                        <div class="flex gap-2 mt-4 pt-4 border-t border-slate-100">
-                            <button onclick="handleRequest(1, true)" class="flex-1 bg-white border border-emerald-200 text-emerald-600 hover:bg-emerald-50 text-xs font-semibold py-1.5 rounded transition">قبول</button>
-                            <button onclick="handleRequest(1, false)" class="flex-1 bg-white border border-red-200 text-red-600 hover:bg-red-50 text-xs font-semibold py-1.5 rounded transition">رفض</button>
-                        </div>
-                    </div>
-                    <div class="premium-card p-5 relative overflow-hidden" id="req-2">
-                        <div class="absolute top-0 right-0 w-1 h-full bg-brand-500"></div>
-                        <div class="flex items-start gap-3 mb-4">
-                            <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold border border-slate-200">ف.ع</div>
-                            <div class="flex-1"><h3 class="font-bold text-slate-800 text-sm">فاطمة علي</h3><p class="text-[11px] text-slate-500 mt-0.5">متقدمة لـ: القافلة الطبية</p></div>
-                        </div>
-                        <div class="flex gap-2 mt-4 pt-4 border-t border-slate-100">
-                            <button onclick="handleRequest(2, true)" class="flex-1 bg-white border border-emerald-200 text-emerald-600 hover:bg-emerald-50 text-xs font-semibold py-1.5 rounded transition">قبول</button>
-                            <button onclick="handleRequest(2, false)" class="flex-1 bg-white border border-red-200 text-red-600 hover:bg-red-50 text-xs font-semibold py-1.5 rounded transition">رفض</button>
-                        </div>
+                    <!-- شاشة الفراغ الواقعية -->
+                    <div class="col-span-full flex flex-col items-center justify-center py-16 text-center" id="emptyRequestsState">
+                        <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4"><i class="fa-solid fa-inbox text-2xl text-slate-300"></i></div>
+                        <h3 class="text-slate-700 font-bold mb-1">لا توجد طلبات معلقة</h3>
+                        <p class="text-sm text-slate-500">لم يتقدم أي متطوع لفرصك حتى الآن.</p>
                     </div>
                 </div>
             </div>
@@ -241,7 +279,7 @@
         </div>
     </main>
 
-    <!-- الدرج الجانبي -->
+    <!-- ====== الدرج الجانبي لإنشاء فرصة (مع خانة الصورة) ====== -->
     <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
     <div class="side-drawer" id="sideDrawer">
         <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
@@ -253,9 +291,38 @@
                 <label class="block text-xs font-semibold text-slate-600 mb-1.5">عنوان الفرصة <span class="text-red-500">*</span></label>
                 <input type="text" id="oppTitle" class="w-full bg-white border border-slate-300 rounded-md py-2 px-3 text-sm focus:outline-none focus:border-brand-500" placeholder="مثال: ورشة الإسعافات الأولية">
             </div>
+            
+            <!-- خانة الصورة -->
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1.5">رابط صورة الفرصة (اختياري)</label>
+                <div class="relative">
+                    <i class="fa-solid fa-image absolute right-3 top-2.5 text-slate-400 text-sm"></i>
+                    <input type="url" id="oppImage" class="w-full bg-white border border-slate-300 rounded-md py-2 pr-9 pl-3 text-sm focus:outline-none focus:border-brand-500" placeholder="https://example.com/image.jpg">
+                </div>
+                <p class="text-[10px] text-slate-400 mt-1">ضع رابط صورة لتظهر في الجدول، أو سيتم وضع صورة افتراضية.</p>
+            </div>
+
             <div>
                 <label class="block text-xs font-semibold text-slate-600 mb-1.5">الوصف</label>
                 <textarea id="oppDesc" rows="4" class="w-full bg-white border border-slate-300 rounded-md py-2 px-3 text-sm resize-none focus:outline-none focus:border-brand-500" placeholder="المهام والمتطلبات..."></textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">الساعات</label>
+                    <input type="number" id="oppHours" class="w-full bg-white border border-slate-300 rounded-md py-2 px-3 text-sm focus:outline-none focus:border-brand-500" value="4">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">العدد المطلوب</label>
+                    <input type="number" id="oppVolunteers" class="w-full bg-white border border-slate-300 rounded-md py-2 px-3 text-sm focus:outline-none focus:border-brand-500" value="10">
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1.5">التصنيف</label>
+                <select id="oppIcon" class="w-full bg-white border border-slate-300 rounded-md py-2 px-3 text-sm focus:outline-none focus:border-brand-500 transition appearance-none">
+                    <option value="fa-heart-pulse|red|رعاية صحية">رعاية صحية</option>
+                    <option value="fa-truck-medical|emerald|قوافل وإغاثة">قوافل وإغاثة</option>
+                    <option value="fa-kit-medical|orange|إسعاف وتدريب">إسعاف وتدريب</option>
+                </select>
             </div>
         </div>
         <div class="p-5 border-t border-slate-100 bg-slate-50 flex gap-3 justify-end">
@@ -268,28 +335,17 @@
     <div id="toast-container"></div>
 
     <script>
-        // إعداد الجلسة وتجنب التعطل في المحرر
+        // تثبيت اسم ترياق بشكل قاطع
         let session = JSON.parse(localStorage.getItem('majaz_session'));
         if (!session || session.role !== 'association') {
-            session = { name: 'جمعية ترياق', role: 'association' }; 
+            session = { name: 'ترياق', role: 'association' }; 
         }
+        session.name = "ترياق";
+        
+        // تطبيق الاسم في الواجهة
         document.getElementById('orgNameSidebar').innerText = session.name;
 
-        // الرسم البياني
-        const ctx = document.getElementById('impactChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: { labels: ['جانفي', 'فيفري', 'مارس', 'أفريل', 'ماي', 'جوان'], datasets: [{ label: 'الساعات المنجزة', data: [120, 190, 150, 280, 320, 480], borderColor: '#7c3aed', backgroundColor: 'rgba(124, 58, 237, 0.1)', borderWidth: 2, fill: true }] },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
-        });
-
-        // زر تسجيل الخروج الذي كان مفقوداً
-        function logout() {
-            localStorage.removeItem('majaz_session');
-            window.location.href = 'index.html';
-        }
-
-        // التبويبات
+        // التبويبات والتنقل
         function switchView(viewId, element) {
             const loader = document.getElementById('skeletonLoader');
             const sections = document.querySelectorAll('.view-section');
@@ -324,9 +380,8 @@
         const drawer = document.getElementById('sideDrawer');
         const overlay = document.getElementById('drawerOverlay');
         function openDrawer() { overlay.classList.add('open'); drawer.classList.add('open'); }
-        function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open'); document.getElementById('oppTitle').value = ''; }
+        function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open'); document.getElementById('oppTitle').value = ''; document.getElementById('oppImage').value = ''; }
 
-        // التنبيهات
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -337,30 +392,49 @@
             setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
         }
 
-        // إضافة فرصة
+        // دالة إضافة فرصة مع استخدام رابط الصورة
         function submitOpportunity() {
             let title = document.getElementById('oppTitle').value;
+            let hours = document.getElementById('oppHours').value;
+            let volunteersCount = document.getElementById('oppVolunteers').value;
+            let imgUrl = document.getElementById('oppImage').value.trim();
+            let iconData = document.getElementById('oppIcon').value.split('|');
+            
+            // صورة افتراضية طبية إذا تُرك الرابط فارغاً
+            if(!imgUrl) imgUrl = 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=150&q=80'; 
+
             if(!title) return showToast("الرجاء إدخال عنوان الفرصة", "error");
             document.getElementById('statActive').innerText = parseInt(document.getElementById('statActive').innerText) + 1;
-            let newRow = `<tr class="hover:bg-slate-50/50 transition group"><td class="px-6 py-4"><div class="font-semibold text-slate-800">${title} <span class="bg-brand-100 text-brand-700 text-[9px] px-1.5 py-0.5 rounded ml-1">جديد</span></div><div class="text-xs text-slate-500 mt-0.5">عام • الآن</div></td><td class="px-6 py-4 text-xs">اليوم</td><td class="px-6 py-4"><div class="flex items-center gap-2"><div class="w-16 bg-slate-100 rounded-full h-1.5"><div class="bg-emerald-500 h-1.5 rounded-full" style="width: 0%"></div></div><span class="text-xs font-medium">0/10</span></div></td><td class="px-6 py-4"><span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> نشط</span></td><td class="px-6 py-4 text-center relative"><button onclick="toggleDropdown(this)" class="text-slate-400 hover:text-slate-700 p-1 rounded hover:bg-slate-100 transition"><i class="fa-solid fa-ellipsis"></i></button><div class="dropdown-menu"><a href="#" class="block px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-brand-600">تعديل</a></div></td></tr>`;
+            
+            let newRow = `
+                <tr class="hover:bg-slate-50/50 transition group">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-4">
+                            <img src="${imgUrl}" alt="صورة الفرصة" class="w-12 h-12 rounded-lg object-cover border border-slate-200 shadow-sm">
+                            <div>
+                                <div class="font-semibold text-slate-800">${title} <span class="bg-brand-100 text-brand-700 text-[9px] px-1.5 py-0.5 rounded ml-1">جديد</span></div>
+                                <div class="text-xs text-slate-500 mt-0.5">${iconData[2]} • ${hours} ساعات</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-xs">الآن</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-2"><div class="w-16 bg-slate-100 rounded-full h-1.5"><div class="bg-emerald-500 h-1.5 rounded-full" style="width: 0%"></div></div><span class="text-xs font-medium">0/${volunteersCount}</span></div>
+                    </td>
+                    <td class="px-6 py-4"><span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> نشط</span></td>
+                    <td class="px-6 py-4 text-center relative">
+                        <button onclick="toggleDropdown(this)" class="text-slate-400 hover:text-slate-700 p-1 rounded hover:bg-slate-100 transition"><i class="fa-solid fa-ellipsis"></i></button>
+                        <div class="dropdown-menu"><a href="#" class="block px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-brand-600">تعديل</a></div>
+                    </td>
+                </tr>`;
+            
             document.getElementById('oppsTableBody').insertAdjacentHTML('afterbegin', newRow);
             switchView('opportunities', document.querySelectorAll('.sidebar-item')[1]);
             closeDrawer(); 
-            showToast("تم نشر الفرصة بنجاح");
+            showToast("تم نشر الفرصة مع صورتها بنجاح!");
         }
 
-        // معالجة الطلبات
-        function handleRequest(id, isAccepted) {
-            let reqDiv = document.getElementById('req-' + id);
-            let stat = document.getElementById('statPending');
-            stat.innerText = parseInt(stat.innerText) - 1;
-            if(parseInt(stat.innerText) === 0) {
-                document.getElementById('pendingBadge').style.display = 'none';
-                document.getElementById('applicantsGrid').innerHTML = `<div class="col-span-full flex flex-col items-center justify-center py-16 text-center"><div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4"><i class="fa-solid fa-inbox text-2xl text-slate-300"></i></div><h3 class="text-slate-700 font-bold mb-1">لا توجد طلبات معلقة</h3><p class="text-sm text-slate-500">لقد قمت بمراجعة جميع طلبات المتطوعين.</p></div>`;
-            }
-            reqDiv.remove();
-            showToast(isAccepted ? `تم قبول المتطوع` : `تم رفض الطلب`);
-        }
+        function logout() { localStorage.removeItem('majaz_session'); window.location.href = 'index.html'; }
     </script>
 </body>
 </html>
