@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مجاز | لوحة تحكم الإدارة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>مجاز | الإدارة المركزية</title>
+    <!-- الخطوط -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- الأيقونات -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -13,10 +16,9 @@
                 extend: {
                     fontFamily: { sans: ['Cairo', 'sans-serif'] },
                     colors: {
+                        admin: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' },
                         primary: '#6b21a8',
-                        primaryDark: '#4c1d95',
                         secondary: '#fbbf24',
-                        dark: '#0f172a',
                         surface: '#f8fafc'
                     }
                 }
@@ -24,101 +26,232 @@
         }
     </script>
     <style>
-        body { background-color: #f1f5f9; }
-        .glass-card { background: white; border: 1px solid #e2e8f0; border-radius: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; }
-        .glass-card:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
-        .sidebar-item { transition: all 0.2s; border-right: 4px solid transparent; }
+        body { background-color: #f1f5f9; color: #334155; }
+        .admin-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: all 0.2s; }
+        .sidebar-item { transition: all 0.2s; border-right: 3px solid transparent; cursor: pointer; }
         .sidebar-item:hover { background-color: rgba(255,255,255,0.05); }
-        .sidebar-item.active { background-color: rgba(255,255,255,0.1); border-right-color: #fbbf24; color: white; font-weight: bold; }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .sidebar-item.active { background-color: rgba(255,255,255,0.1); border-right-color: #fbbf24; color: white; }
+        
+        .view-section { display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .view-section.active { display: block; opacity: 1; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        #toast-container { position: fixed; bottom: 24px; left: 24px; z-index: 100; display: flex; flex-direction: column; gap: 12px; }
+        .toast { animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes slideIn { from { transform: translateX(-100%) scale(0.95); opacity: 0; } to { transform: translateX(0) scale(1); opacity: 1; } }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
     </style>
 </head>
-<body class="font-sans text-slate-800 flex h-screen overflow-hidden">
+<body class="font-sans flex h-screen overflow-hidden text-sm">
 
-    <!-- القائمة الجانبية -->
-    <aside class="w-72 bg-dark text-slate-300 flex flex-col flex-shrink-0 relative z-20 shadow-2xl border-l border-white/5">
-        <div class="h-24 flex items-center px-8 border-b border-white/10 bg-black/20">
-            <i class="fa-solid fa-shield-halved text-4xl text-secondary ml-3 shadow-sm"></i>
-            <span class="text-3xl font-black text-white tracking-wide">مجاز</span>
+    <!-- ================= القائمة الجانبية (Sidebar) ================= -->
+    <aside class="w-64 bg-admin-950 text-slate-300 flex flex-col flex-shrink-0 relative z-20 shadow-2xl">
+        <div class="h-20 flex items-center px-6 border-b border-white/10 bg-black/20">
+            <i class="fa-solid fa-shield-halved text-3xl text-secondary ml-3"></i>
+            <span class="text-2xl font-black text-white tracking-wide">مجاز <span class="text-primary font-bold text-sm">Control</span></span>
         </div>
-
+        
         <div class="p-6 border-b border-white/10">
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-gradient-to-br from-secondary to-orange-500 rounded-2xl flex items-center justify-center text-dark font-bold text-2xl shadow-lg">
-                    <i class="fa-solid fa-user-tie"></i>
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-gradient-to-br from-primary to-purple-600 rounded-xl flex items-center justify-center text-white font-bold border border-white/10 shadow-lg">
+                    <i class="fa-solid fa-user-tie text-xl"></i>
                 </div>
                 <div>
-                    <h3 class="text-white font-bold text-lg truncate w-40" id="adminName">المدير العام</h3>
-                    <p class="text-xs text-emerald-400 mt-1 font-bold">النظام يعمل <i class="fa-solid fa-signal ml-1"></i></p>
+                    <h3 class="text-white font-bold text-sm">الإدارة المركزية</h3>
+                    <p class="text-[11px] text-emerald-400 mt-1 font-bold"><i class="fa-solid fa-signal mr-1"></i> النظام نشط</p>
                 </div>
             </div>
         </div>
 
-        <nav class="flex-1 py-6 px-4 space-y-2 overflow-y-auto custom-scrollbar">
-            <a href="#" class="sidebar-item active flex items-center gap-3 px-4 py-3 rounded-xl text-sm">
-                <i class="fa-solid fa-chart-line w-6 text-center text-lg"></i> نظرة عامة
-            </a>
-            <a href="#" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-400 hover:text-white">
-                <i class="fa-solid fa-building-ngo w-6 text-center text-lg"></i> إدارة الجمعيات
-            </a>
-            <a href="#" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-400 hover:text-white">
-                <div class="flex items-center gap-3"><i class="fa-solid fa-users w-6 text-center text-lg"></i> قاعدة المتطوعين</div>
-            </a>
-            <a href="#" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-400 hover:text-white">
-                <i class="fa-solid fa-file-contract w-6 text-center text-lg"></i> التقارير الشاملة
-            </a>
+        <nav class="flex-1 py-4 px-3 space-y-2 overflow-y-auto custom-scrollbar">
+            <p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">مراكز المراجعة والاعتماد</p>
+            
+            <div onclick="switchView('dashboard', this)" class="sidebar-item active flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-bold text-white bg-white/10">
+                <i class="fa-solid fa-chart-line w-5 text-center text-secondary"></i> نظرة عامة
+            </div>
+            
+            <div onclick="switchView('verify-orgs', this)" class="sidebar-item flex items-center justify-between px-3 py-3 rounded-lg text-sm font-bold text-slate-400 hover:text-white">
+                <div class="flex items-center gap-3"><i class="fa-solid fa-building-circle-check w-5 text-center"></i> توثيق الجمعيات</div>
+                <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full hidden" id="badge-orgs">0</span>
+            </div>
+            
+            <div onclick="switchView('approve-opps', this)" class="sidebar-item flex items-center justify-between px-3 py-3 rounded-lg text-sm font-bold text-slate-400 hover:text-white">
+                <div class="flex items-center gap-3"><i class="fa-solid fa-clipboard-check w-5 text-center"></i> الموافقة على الفرص</div>
+                <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full hidden" id="badge-opps">0</span>
+            </div>
+            
+            <div onclick="switchView('validate-hours', this)" class="sidebar-item flex items-center justify-between px-3 py-3 rounded-lg text-sm font-bold text-slate-400 hover:text-white">
+                <div class="flex items-center gap-3"><i class="fa-solid fa-clock-rotate-left w-5 text-center"></i> اعتماد الساعات</div>
+                <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full hidden" id="badge-hours">0</span>
+            </div>
         </nav>
 
-        <div class="p-4 border-t border-white/10">
-            <button onclick="logout()" class="w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-rose-500 hover:text-white transition py-3 rounded-xl text-sm font-bold">
-                <i class="fa-solid fa-power-off"></i> إنهاء الجلسة
+        <div class="p-4 border-t border-white/10 bg-black/10">
+            <button onclick="logout()" class="w-full flex items-center justify-center gap-3 px-3 py-3 rounded-lg text-sm font-bold text-slate-400 hover:text-white hover:bg-red-500/20 transition border border-transparent hover:border-red-500/30">
+                <i class="fa-solid fa-power-off"></i> تسجيل الخروج
             </button>
         </div>
     </aside>
 
-    <!-- المحتوى الرئيسي -->
+    <!-- ================= المحتوى الرئيسي ================= -->
     <main class="flex-1 flex flex-col h-screen overflow-hidden bg-surface relative">
-        <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0 z-10">
-            <h2 class="text-2xl font-black text-slate-800">اللوحة المركزية للإدارة</h2>
-            <button class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition">
-                <i class="fa-solid fa-bell"></i>
-            </button>
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0 z-10 shadow-sm">
+            <div class="flex items-center gap-2 text-sm text-slate-500 font-bold">
+                <i class="fa-solid fa-shield text-primary"></i> 
+                <i class="fa-solid fa-chevron-left text-[10px] mx-1"></i>
+                <span class="text-slate-800" id="headerTitle">نظرة عامة</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 border border-slate-200 cursor-pointer hover:bg-slate-200 transition">
+                    <i class="fa-regular fa-bell"></i>
+                </div>
+            </div>
         </header>
 
-        <div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="glass-card p-6 flex items-center gap-6 border-r-4 border-r-primary">
-                    <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center"><i class="fa-solid fa-users text-2xl text-primary"></i></div>
-                    <div><h3 class="text-slate-500 font-bold mb-1">إجمالي المتطوعين</h3><span class="text-3xl font-black text-dark">1,245</span></div>
+        <div class="flex-1 overflow-y-auto p-8 custom-scrollbar relative">
+
+            <!-- ====== الشاشة 1: لوحة القيادة ====== -->
+            <div id="view-dashboard" class="view-section active">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-black text-slate-900 mb-2">لوحة التحكم المركزية</h1>
+                    <p class="text-slate-500 font-semibold">مرحباً بك. النظام جاهز لاستقبال بيانات الجمعيات والمتطوعين.</p>
                 </div>
-                <div class="glass-card p-6 flex items-center gap-6 border-r-4 border-r-secondary">
-                    <div class="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center"><i class="fa-solid fa-building-ngo text-2xl text-secondary"></i></div>
-                    <div><h3 class="text-slate-500 font-bold mb-1">الجمعيات المعتمدة</h3><span class="text-3xl font-black text-dark">42</span></div>
-                </div>
-                <div class="glass-card p-6 flex items-center gap-6 border-r-4 border-r-emerald-500">
-                    <div class="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center"><i class="fa-solid fa-clock text-2xl text-emerald-500"></i></div>
-                    <div><h3 class="text-slate-500 font-bold mb-1">ساعات الأثر الكلية</h3><span class="text-3xl font-black text-dark">8,900</span></div>
-                </div>
-            </div>
-            
-            <div class="glass-card p-8">
-                <h3 class="text-xl font-black text-slate-800 mb-6">نشاط المنصة الأخير</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        <p class="font-bold text-sm">تم تسجيل متطوع جديد <span class="text-slate-500">(منذ 5 دقائق)</span></p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="admin-card p-6 border-t-4 border-t-blue-500 flex items-center gap-6">
+                        <div class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl"><i class="fa-solid fa-building-ngo"></i></div>
+                        <div><h3 class="text-slate-500 font-bold mb-1">الجمعيات الموثقة</h3><span class="text-3xl font-black text-slate-800">0</span></div>
                     </div>
-                    <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-                        <p class="font-bold text-sm">نشرت "جمعية الأمل" فرصة تطوعية جديدة <span class="text-slate-500">(منذ 15 دقيقة)</span></p>
+                    <div class="admin-card p-6 border-t-4 border-t-purple-500 flex items-center gap-6">
+                        <div class="w-16 h-16 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-2xl"><i class="fa-solid fa-users"></i></div>
+                        <div><h3 class="text-slate-500 font-bold mb-1">إجمالي المتطوعين</h3><span class="text-3xl font-black text-slate-800">0</span></div>
+                    </div>
+                    <div class="admin-card p-6 border-t-4 border-t-emerald-500 flex items-center gap-6">
+                        <div class="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                        <div><h3 class="text-slate-500 font-bold mb-1">ساعات معتمدة كلياً</h3><span class="text-3xl font-black text-slate-800">0</span></div>
                     </div>
                 </div>
+
+                <div class="admin-card p-8 bg-gradient-to-r from-slate-900 to-admin-800 text-white">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-emerald-400 text-xl"><i class="fa-solid fa-check-double"></i></div>
+                        <div><h2 class="text-xl font-black">لا توجد إجراءات معلقة</h2><p class="text-slate-400 text-sm">أنت في السليم! لا توجد حالياً أي طلبات تحتاج إلى تدخلك.</p></div>
+                    </div>
+                    <div class="flex gap-4 mt-6">
+                        <button onclick="switchView('verify-orgs', document.querySelectorAll('.sidebar-item')[1])" class="bg-white/5 text-slate-400 border border-white/10 px-6 py-2.5 rounded-xl font-bold transition text-sm hover:bg-white/10">توثيق الجمعيات (0)</button>
+                        <button onclick="switchView('approve-opps', document.querySelectorAll('.sidebar-item')[2])" class="bg-white/5 text-slate-400 border border-white/10 px-6 py-2.5 rounded-xl font-bold transition text-sm hover:bg-white/10">الموافقة على الفرص (0)</button>
+                    </div>
+                </div>
             </div>
+
+            <!-- ====== الشاشة 2: توثيق الجمعيات ====== -->
+            <div id="view-verify-orgs" class="view-section">
+                <div class="mb-6"><h1 class="text-2xl font-black text-slate-900 mb-1">توثيق الجمعيات الجديدة</h1><p class="text-slate-500">مراجعة طلبات التسجيل ومنح شارة "حساب موثق".</p></div>
+                <div class="admin-card overflow-hidden">
+                    <table class="w-full text-right text-sm">
+                        <thead class="bg-slate-50 border-b border-slate-200 text-xs text-slate-500 font-bold uppercase">
+                            <tr><th class="px-6 py-4">اسم الجمعية</th><th class="px-6 py-4">البريد الإلكتروني</th><th class="px-6 py-4">تاريخ الطلب</th><th class="px-6 py-4 text-center">إجراءات الإدارة</th></tr>
+                        </thead>
+                        <tbody id="table-orgs" class="divide-y divide-slate-100 bg-white text-slate-700 font-medium">
+                            <tr class="empty-state">
+                                <td colspan="4" class="px-6 py-16 text-center">
+                                    <i class="fa-solid fa-check-double text-5xl text-emerald-100 mb-4 block"></i>
+                                    <h3 class="text-slate-700 font-black text-lg mb-1">تم إنجاز كل المهام!</h3>
+                                    <p class="text-sm text-slate-500">لا توجد طلبات تسجيل جمعيات جديدة حالياً.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ====== الشاشة 3: الموافقة على الفرص ====== -->
+            <div id="view-approve-opps" class="view-section">
+                <div class="mb-6"><h1 class="text-2xl font-black text-slate-900 mb-1">الموافقة على الفرص التطوعية</h1><p class="text-slate-500">الفرص لا تظهر للمتطوعين إلا بعد موافقتك عليها.</p></div>
+                <div class="admin-card overflow-hidden">
+                    <table class="w-full text-right text-sm">
+                        <thead class="bg-slate-50 border-b border-slate-200 text-xs text-slate-500 font-bold uppercase">
+                            <tr><th class="px-6 py-4">تفاصيل الفرصة</th><th class="px-6 py-4">الجمعية الناشرة</th><th class="px-6 py-4">الساعات</th><th class="px-6 py-4 text-center">قرار الإدارة</th></tr>
+                        </thead>
+                        <tbody id="table-opps" class="divide-y divide-slate-100 bg-white text-slate-700 font-medium">
+                            <tr class="empty-state">
+                                <td colspan="4" class="px-6 py-16 text-center">
+                                    <i class="fa-solid fa-check-double text-5xl text-emerald-100 mb-4 block"></i>
+                                    <h3 class="text-slate-700 font-black text-lg mb-1">تم إنجاز كل المهام!</h3>
+                                    <p class="text-sm text-slate-500">لا توجد فرص بانتظار موافقتك.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ====== الشاشة 4: اعتماد الساعات ====== -->
+            <div id="view-validate-hours" class="view-section">
+                <div class="mb-6"><h1 class="text-2xl font-black text-slate-900 mb-1">اعتماد ساعات المتطوعين</h1><p class="text-slate-500">طلبات رفع الرصيد بعد انتهاء العمل التطوعي.</p></div>
+                <div class="admin-card overflow-hidden">
+                    <table class="w-full text-right text-sm">
+                        <thead class="bg-slate-50 border-b border-slate-200 text-xs text-slate-500 font-bold uppercase">
+                            <tr><th class="px-6 py-4">المتطوع</th><th class="px-6 py-4">الفرصة المُنجزة</th><th class="px-6 py-4">جهة التطوع</th><th class="px-6 py-4 text-center">اعتماد الرصيد</th></tr>
+                        </thead>
+                        <tbody id="table-hours" class="divide-y divide-slate-100 bg-white text-slate-700 font-medium">
+                            <tr class="empty-state">
+                                <td colspan="4" class="px-6 py-16 text-center">
+                                    <i class="fa-solid fa-check-double text-5xl text-emerald-100 mb-4 block"></i>
+                                    <h3 class="text-slate-700 font-black text-lg mb-1">تم إنجاز كل المهام!</h3>
+                                    <p class="text-sm text-slate-500">تم اعتماد جميع أرصدة المتطوعين بنجاح.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </main>
 
+    <!-- התنبيهات -->
+    <div id="toast-container"></div>
+
     <script>
+        // التحقق من الجلسة (الحماية)
+        let session = JSON.parse(localStorage.getItem('majaz_session'));
+        if (!session || session.role !== 'admin') {
+            // في الوضع الحقيقي سيُرجعك لـ index إذا حاولت الدخول دون تسجيل
+            // window.location.href = 'index.html';
+        }
+
+        // التبويبات (SPA Navigation)
+        function switchView(viewId, element) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-' + viewId).classList.add('active');
+            
+            document.querySelectorAll('.sidebar-item').forEach(el => {
+                el.classList.remove('active', 'text-white', 'bg-white/10');
+                el.classList.add('text-slate-400');
+            });
+            element.classList.remove('text-slate-400');
+            element.classList.add('active', 'text-white', 'bg-white/10');
+            
+            const titles = { 'dashboard': 'نظرة عامة', 'verify-orgs': 'توثيق الجمعيات', 'approve-opps': 'الموافقة على الفرص', 'validate-hours': 'اعتماد الساعات' };
+            document.getElementById('headerTitle').innerText = titles[viewId];
+        }
+
+        // الإشعارات
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            let icon = type === 'success' ? '<i class="fa-solid fa-check-circle text-emerald-500 text-lg"></i>' : '<i class="fa-solid fa-info-circle text-blue-500 text-lg"></i>';
+            toast.className = `toast flex items-center gap-3 bg-white border border-slate-200 shadow-xl rounded-xl p-4 min-w-[280px] border-r-4 border-r-admin-900`;
+            toast.innerHTML = `<div>${icon}</div><div class="font-bold text-slate-800">${message}</div>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        // تسجيل الخروج
         function logout() {
             localStorage.removeItem('majaz_session');
             window.location.href = 'index.html';
