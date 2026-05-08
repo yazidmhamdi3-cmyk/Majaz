@@ -69,7 +69,7 @@
             </div>
         </nav>
 
-        <div class="container mx-auto px-6 text-center relative z-10 mt-6 md:mt-12 mb-10 md:mb-16">
+        <div class="container mx-auto px-6 text-center relative z-10 mt-6 md:mt-12 mb-8">
             <span class="inline-block py-1.5 px-5 rounded-full bg-black/10 text-secondary font-bold text-xs md:text-sm mb-6 border border-secondary/30 backdrop-blur-md shadow-lg">
                 ✨ المنصة الأولى للعمل المجتمعي
             </span>
@@ -78,9 +78,16 @@
                 <span>بوابتك للأثر..</span> <span class="text-secondary">ولمستقبلك المهني</span>
             </h1>
             
-            <p class="text-base md:text-lg text-purple-100 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium mt-4">
-                حدد صفتك أدناه للدخول إلى المنصة. صور حية، توثيق معتمد، ومجتمع ينبض بالعطاء.
+            <p class="text-base md:text-xl text-purple-100 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium mt-4">
+                صور حية، توثيق معتمد، ومجتمع ينبض بالعطاء.
             </p>
+        </div>
+
+        <div class="container mx-auto px-6 text-center relative z-10 mb-6">
+            <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-2.5 shadow-lg">
+                <span class="text-secondary text-lg"><i class="fa-solid fa-hand-point-down"></i></span>
+                <span class="text-white font-bold text-sm md:text-base">حدد صفتك أدناه للدخول إلى المنصة</span>
+            </div>
         </div>
 
         <div class="container mx-auto px-6 flex flex-col md:flex-row justify-center items-center gap-6 md:gap-8 max-w-4xl relative z-10">
@@ -119,193 +126,4 @@
             </button>
             
             <div class="w-full h-48 md:h-64 relative">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" alt="Teamwork" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent"></div>
-            </div>
-
-            <div class="px-6 md:px-10 pb-10 pt-2 relative -mt-10">
-                <div class="w-24 h-24 bg-white rounded-2xl shadow-lg flex items-center justify-center border-4 border-white mx-auto mb-4 overflow-visible">
-                    <img src="logo.png" alt="Logo" class="w-full h-full object-contain scale-125">
-                </div>
-                
-                <h2 class="text-3xl md:text-4xl font-black text-primary text-center mb-6">عن منصة مجاز</h2>
-                
-                <p class="text-slate-600 font-bold text-center leading-relaxed mb-8">
-                    مجاز هي حلقة الوصل والجسر المتين الذي يربط بين الطاقات الشبابية الشغوفة بالتطوع، وبين الجمعيات والمبادرات الفاعلة في المجتمع.
-                </p>
-
-                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100">
-                    <h3 class="text-xl font-black text-secondary mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-star"></i> أثرك التطوعي معنا:
-                    </h3>
-                    <ul class="space-y-4 text-slate-700 font-semibold">
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check-circle text-emerald-500 mt-1"></i>
-                            <span><strong class="text-primary">توثيق الساعات:</strong> تسجيل دقيق لكل ساعة تطوعية تقضيها في خدمة المجتمع.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check-circle text-emerald-500 mt-1"></i>
-                            <span><strong class="text-primary">سيرة ذاتية قوية:</strong> تحويل مجهوداتك إلى سيرة ذاتية مجتمعية معتمدة تدعم مسارك المهني.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check-circle text-emerald-500 mt-1"></i>
-                            <span><strong class="text-primary">توسيع العلاقات:</strong> بناء شبكة تواصل مع مؤثرين وجمعيات رائدة في مجالك.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check-circle text-emerald-500 mt-1"></i>
-                            <span><strong class="text-primary">اكتساب مهارات:</strong> صقل مهاراتك القيادية والاجتماعية من خلال الميدان.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="authModal" class="fixed inset-0 bg-dark/90 backdrop-blur-md z-50 hidden-app flex items-center justify-center p-4" dir="rtl">
-        <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-md overflow-hidden relative border border-slate-100">
-            <button onclick="closeAuth()" class="absolute top-5 rtl:left-5 ltr:right-5 text-slate-400 hover:text-red-500 transition text-2xl z-10 w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center">
-                <i class="fa-solid fa-xmark text-sm"></i>
-            </button>
-            <div class="text-center pt-10 pb-6 bg-slate-50 border-b border-slate-100">
-                <i id="authIcon" class="text-5xl text-primary mb-3"></i>
-                <h2 id="authTitle" class="text-2xl font-black text-slate-800"></h2>
-            </div>
-            <div id="tabsContainer" class="flex border-b border-slate-200 mb-6 px-6 bg-slate-50">
-                <button id="tabLogin" onclick="switchTab(true)" class="tab-btn active flex-1 py-4 font-bold border-b-4 transition">تسجيل دخول</button>
-                <button id="tabSignup" onclick="switchTab(false)" class="tab-btn flex-1 py-4 font-bold border-b-4 transition">حساب جديد</button>
-            </div>
-            <div class="px-8 pb-8 space-y-4">
-                <div id="nameField" class="hidden-app">
-                    <label class="block text-xs font-bold text-slate-500 mb-1">الاسم الكامل / اسم الجهة</label>
-                    <input type="text" id="inpName" class="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary transition">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1">البريد الإلكتروني</label>
-                    <input type="email" id="inpEmail" class="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary transition">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1">كلمة المرور</label>
-                    <input type="password" id="inpPass" class="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary transition">
-                </div>
-                <div id="authMsg" class="text-center text-sm font-bold mt-2"></div>
-                <button onclick="processAuth()" id="submitBtn" class="w-full mt-6 bg-primary text-white font-black py-4 rounded-xl hover:bg-primaryDark transition shadow-lg text-lg">
-                    دخول
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function toggleInfoModal() {
-            const modal = document.getElementById('infoModal');
-            if (modal.classList.contains('hidden')) {
-                modal.classList.remove('hidden');
-            } else {
-                modal.classList.add('hidden');
-            }
-        }
-
-        window.onclick = function(event) {
-            const infoModal = document.getElementById('infoModal');
-            if (event.target == infoModal) {
-                infoModal.classList.add('hidden');
-            }
-        }
-
-        let users = JSON.parse(localStorage.getItem('majaz_users')) || [];
-        let currentRole = ''; 
-        let isLogin = true;
-
-        function openAuth(role) {
-            currentRole = role;
-            document.getElementById('authModal').classList.remove('hidden-app');
-            let iconEl = document.getElementById('authIcon');
-            iconEl.className = role === 'volunteer' ? "fa-solid fa-hand-holding-heart text-5xl text-secondary mb-3" : (role === 'association' ? "fa-solid fa-building-ngo text-5xl text-primary mb-3" : "fa-solid fa-shield-halved text-5xl text-dark mb-3");
-
-            if(role === 'admin') {
-                document.getElementById('tabsContainer').classList.add('hidden-app');
-                switchTab(true); 
-            } else {
-                document.getElementById('tabsContainer').classList.remove('hidden-app');
-                switchTab(true);
-            }
-        }
-
-        function closeAuth() {
-            document.getElementById('authModal').classList.add('hidden-app');
-        }
-
-        function switchTab(loginMode) {
-            isLogin = loginMode;
-            document.getElementById('authMsg').innerText = '';
-            document.getElementById('authTitle').innerText = (isLogin ? 'دخول كـ ' : 'إنشاء حساب كـ ') + (currentRole === 'volunteer' ? 'متطوع' : (currentRole === 'association' ? 'جمعية' : 'إدارة'));
-            document.getElementById('submitBtn').innerText = isLogin ? 'الدخول للمنصة' : 'إنشاء الحساب';
-
-            if(isLogin) {
-                document.getElementById('tabLogin').classList.add('active');
-                document.getElementById('tabSignup').classList.remove('active');
-                document.getElementById('nameField').classList.add('hidden-app');
-            } else {
-                document.getElementById('tabSignup').classList.add('active');
-                document.getElementById('tabLogin').classList.remove('active');
-                document.getElementById('nameField').classList.remove('hidden-app');
-            }
-        }
-
-        function processAuth() {
-            let email = document.getElementById('inpEmail').value.trim();
-            let pass = document.getElementById('inpPass').value.trim();
-            let name = document.getElementById('inpName').value.trim();
-
-            if(!email || !pass) {
-                document.getElementById('authMsg').innerText = "يرجى تعبئة الحقول المطلوبة";
-                document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-red-500";
-                return;
-            }
-
-            if(currentRole === 'admin') {
-                localStorage.setItem('majaz_session', JSON.stringify({role: 'admin', name: 'المدير العام'}));
-                window.location.href = 'admin.html';
-                return;
-            }
-
-            if(isLogin) {
-                let user = users.find(u => u.role === currentRole && u.email === email && u.pass === pass);
-                if(user) {
-                    localStorage.setItem('majaz_session', JSON.stringify(user));
-                    window.location.href = user.role === 'volunteer' ? 'volunteer.html' : 'association.html';
-                } else {
-                    document.getElementById('authMsg').innerText = "البيانات غير صحيحة أو الحساب غير موجود";
-                    document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-red-500";
-                }
-            } else {
-                if(users.find(u => u.email === email)) {
-                    document.getElementById('authMsg').innerText = "هذا البريد مستخدم مسبقاً";
-                    document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-red-500";
-                    return;
-                }
-                let newUser = { id: Date.now(), role: currentRole, name: name, email: email, pass: pass, hours: 0 };
-                users.push(newUser);
-                localStorage.setItem('majaz_users', JSON.stringify(users));
-                localStorage.setItem('majaz_session', JSON.stringify(newUser));
-                
-                document.getElementById('authMsg').innerText = "تم الإنشاء! جاري الدخول...";
-                document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-emerald-500";
-                
-                setTimeout(() => {
-                    window.location.href = newUser.role === 'volunteer' ? 'volunteer.html' : 'association.html';
-                }, 1000);
-            }
-        }
-
-        window.onload = () => {
-            let session = JSON.parse(localStorage.getItem('majaz_session'));
-            if(session) {
-                if(session.role === 'volunteer') window.location.href = 'volunteer.html';
-                if(session.role === 'association') window.location.href = 'association.html';
-                if(session.role === 'admin') window.location.href = 'admin.html';
-            }
-        }
-    </script>
-</body>
-</html>
+                <img src="
