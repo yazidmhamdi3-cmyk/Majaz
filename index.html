@@ -14,13 +14,25 @@
                     fontFamily: { sans: ['Cairo', 'sans-serif'] },
                     colors: {
                         primary: '#4c1d95',
-                        secondary: '#f59e0b', // الأصفر من شعارك
+                        secondary: '#f59e0b', // الأصفر الذهبي من شعارك الجديد
                         dark: '#1e1b4b'
                     }
                 }
             }
         }
     </script>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4c1d95">
+    <link rel="apple-touch-icon" href="logo.png">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js');
+            });
+        }
+    </script>
+    
     <style>
         .hidden-app { display: none !important; }
         .tab-btn.active { color: #f59e0b; border-bottom-color: #f59e0b; }
@@ -35,7 +47,9 @@
         <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-secondary rounded-full blur-[130px] opacity-20 z-0 pointer-events-none"></div>
         <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#8b5cf6] rounded-full blur-[130px] opacity-15 z-0 pointer-events-none"></div>
 
-        <div class="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style="background-image: url('logo.jpg'); background-size: 150px; background-repeat: repeat;"></div>
+        <div class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none overflow-hidden">
+            <img src="logo.jpg" alt="Majaz Logo" class="w-[120%] md:w-[60%] opacity-10 object-contain blur-[2px]">
+        </div>
 
         <nav class="w-full px-6 py-5 flex justify-between items-center relative z-10">
             <div class="flex items-center gap-2">
@@ -104,127 +118,3 @@
             <div class="text-center pt-10 pb-6 bg-slate-50 border-b border-slate-100">
                 <i id="authIcon" class="text-5xl text-primary mb-3"></i>
                 <h2 id="authTitle" class="text-2xl font-black text-slate-800"></h2>
-            </div>
-            <div id="tabsContainer" class="flex border-b border-slate-200 mb-6 px-6 bg-slate-50">
-                <button id="tabLogin" onclick="switchTab(true)" class="tab-btn active flex-1 py-4 font-bold border-b-4 transition">تسجيل دخول</button>
-                <button id="tabSignup" onclick="switchTab(false)" class="tab-btn flex-1 py-4 font-bold border-b-4 transition">حساب جديد</button>
-            </div>
-            <div class="px-8 pb-8 space-y-4">
-                <div id="nameField" class="hidden-app">
-                    <label class="block text-xs font-bold text-slate-500 mb-1">الاسم الكامل / اسم الجهة</label>
-                    <input type="text" id="inpName" class="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary transition" placeholder="مثال: يوسف كمال">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1">البريد الإلكتروني</label>
-                    <input type="email" id="inpEmail" class="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary transition" placeholder="example@email.com">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1">كلمة المرور</label>
-                    <input type="password" id="inpPass" class="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary transition" placeholder="••••••••">
-                </div>
-                <div id="authMsg" class="text-center text-sm font-bold mt-2"></div>
-                <button onclick="processAuth()" id="submitBtn" class="w-full mt-6 bg-primary text-white font-black py-4 rounded-xl hover:bg-primaryDark transition shadow-lg text-lg">
-                    دخول
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let users = JSON.parse(localStorage.getItem('majaz_users')) || [];
-        let currentRole = ''; 
-        let isLogin = true;
-
-        function openAuth(role) {
-            currentRole = role;
-            document.getElementById('authModal').classList.remove('hidden-app');
-            let iconEl = document.getElementById('authIcon');
-            iconEl.className = role === 'volunteer' ? "fa-solid fa-hand-holding-heart text-5xl text-secondary mb-3" : (role === 'association' ? "fa-solid fa-building-ngo text-5xl text-primary mb-3" : "fa-solid fa-shield-halved text-5xl text-dark mb-3");
-
-            if(role === 'admin') {
-                document.getElementById('tabsContainer').classList.add('hidden-app');
-                switchTab(true); 
-            } else {
-                document.getElementById('tabsContainer').classList.remove('hidden-app');
-                switchTab(true);
-            }
-        }
-
-        function closeAuth() {
-            document.getElementById('authModal').classList.add('hidden-app');
-        }
-
-        function switchTab(loginMode) {
-            isLogin = loginMode;
-            document.getElementById('authMsg').innerText = '';
-            document.getElementById('authTitle').innerText = (isLogin ? 'دخول كـ ' : 'إنشاء حساب كـ ') + (currentRole === 'volunteer' ? 'متطوع' : (currentRole === 'association' ? 'جمعية' : 'إدارة'));
-            document.getElementById('submitBtn').innerText = isLogin ? 'الدخول للمنصة' : 'إنشاء الحساب';
-
-            if(isLogin) {
-                document.getElementById('tabLogin').classList.add('active');
-                document.getElementById('tabSignup').classList.remove('active');
-                document.getElementById('nameField').classList.add('hidden-app');
-            } else {
-                document.getElementById('tabSignup').classList.add('active');
-                document.getElementById('tabLogin').classList.remove('active');
-                document.getElementById('nameField').classList.remove('hidden-app');
-            }
-        }
-
-        function processAuth() {
-            let email = document.getElementById('inpEmail').value.trim();
-            let pass = document.getElementById('inpPass').value.trim();
-            let name = document.getElementById('inpName').value.trim();
-
-            if(!email || !pass) {
-                document.getElementById('authMsg').innerText = "يرجى تعبئة الحقول المطلوبة";
-                document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-red-500";
-                return;
-            }
-
-            if(currentRole === 'admin') {
-                localStorage.setItem('majaz_session', JSON.stringify({role: 'admin', name: 'المدير العام'}));
-                window.location.href = 'admin.html';
-                return;
-            }
-
-            if(isLogin) {
-                let user = users.find(u => u.role === currentRole && u.email === email && u.pass === pass);
-                if(user) {
-                    localStorage.setItem('majaz_session', JSON.stringify(user));
-                    window.location.href = user.role === 'volunteer' ? 'volunteer.html' : 'association.html';
-                } else {
-                    document.getElementById('authMsg').innerText = "البيانات غير صحيحة أو الحساب غير موجود";
-                    document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-red-500";
-                }
-            } else {
-                if(users.find(u => u.email === email)) {
-                    document.getElementById('authMsg').innerText = "هذا البريد مستخدم مسبقاً";
-                    document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-red-500";
-                    return;
-                }
-                let newUser = { id: Date.now(), role: currentRole, name: name, email: email, pass: pass, hours: 0 };
-                users.push(newUser);
-                localStorage.setItem('majaz_users', JSON.stringify(users));
-                localStorage.setItem('majaz_session', JSON.stringify(newUser));
-                
-                document.getElementById('authMsg').innerText = "تم الإنشاء! جاري الدخول...";
-                document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-emerald-500";
-                
-                setTimeout(() => {
-                    window.location.href = newUser.role === 'volunteer' ? 'volunteer.html' : 'association.html';
-                }, 1000);
-            }
-        }
-
-        window.onload = () => {
-            let session = JSON.parse(localStorage.getItem('majaz_session'));
-            if(session) {
-                if(session.role === 'volunteer') window.location.href = 'volunteer.html';
-                if(session.role === 'association') window.location.href = 'association.html';
-                if(session.role === 'admin') window.location.href = 'admin.html';
-            }
-        }
-    </script>
-</body>
-</html>
