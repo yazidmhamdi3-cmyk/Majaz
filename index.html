@@ -13,9 +13,8 @@
                 extend: {
                     fontFamily: { sans: ['Cairo', 'sans-serif'] },
                     colors: {
-                        primary: '#6b21a8',
-                        primaryDark: '#4c1d95',
-                        secondary: '#fbbf24',
+                        primary: '#4c1d95',
+                        secondary: '#f59e0b',
                         dark: '#1e1b4b'
                     }
                 }
@@ -24,118 +23,109 @@
     </script>
     <style>
         .hidden-app { display: none !important; }
-        .tab-btn.active { color: #fbbf24; border-bottom-color: #fbbf24; }
+        .tab-btn.active { color: #f59e0b; border-bottom-color: #f59e0b; }
         .tab-btn { color: #cbd5e1; border-bottom-color: transparent; }
-        .img-overlay { background: linear-gradient(to top, rgba(76, 29, 149, 0.95) 0%, rgba(107, 33, 168, 0.4) 50%, rgba(0,0,0,0) 100%); }
-        
-        /* تأثير دمج الشعار في الخلفية */
-        .logo-watermark {
-            background-image: url('logo.jpg'); /* تأكد من تسمية الصورة بهذا الاسم في مجلدك */
-            background-size: 60%;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.06; /* شفافية خفيفة لكي لا يزعج القراءة */
-            mix-blend-mode: luminosity; /* لدمج الصورة مع اللون البنفسجي والأصفر */
-        }
+        .img-overlay { background: linear-gradient(to top, rgba(46, 16, 101, 0.95) 0%, rgba(76, 29, 149, 0.5) 50%, rgba(0,0,0,0) 100%); }
     </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800 min-h-screen flex flex-col selection:bg-secondary selection:text-primaryDark">
+<body class="bg-slate-50 font-sans text-slate-800 min-h-screen flex flex-col selection:bg-secondary selection:text-white">
 
-    <div class="flex-1 flex flex-col relative overflow-hidden pb-12 bg-gradient-to-br from-[#3b0764] via-[#581c87] to-[#7e22ce]">
+    <div class="flex-1 flex flex-col relative overflow-hidden pb-12 bg-gradient-to-br from-[#2e1065] via-[#581c87] to-[#1e1b4b]">
         
-        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-secondary rounded-full blur-[130px] opacity-30 z-0"></div>
-        <div class="absolute bottom-[-10%] right-[-5%] w-[400px] h-[400px] bg-purple-400 rounded-full blur-[120px] opacity-20 z-0"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-secondary rounded-full blur-[120px] opacity-20 z-0 pointer-events-none"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-[#8b5cf6] rounded-full blur-[120px] opacity-20 z-0 pointer-events-none"></div>
 
-        <div class="absolute inset-0 z-0 logo-watermark"></div>
+        <div class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none overflow-hidden">
+            <img src="logo.jpg" alt="Majaz Logo" class="w-[120%] md:w-[60%] opacity-10 object-contain blur-[2px]">
+        </div>
 
-        <nav class="container mx-auto px-8 py-6 flex justify-between items-center relative z-10">
-            <div class="flex items-center gap-3">
-                <i class="fa-solid fa-passport text-4xl text-secondary"></i>
-                <span class="text-4xl font-black text-white tracking-wider" data-i18n="logo">مجاز</span>
+        <nav class="w-full px-6 py-5 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-passport text-3xl md:text-4xl text-secondary"></i>
+                <span class="text-3xl md:text-4xl font-black text-white tracking-wider">مجاز</span>
             </div>
             
-            <div class="flex items-center gap-4">
-                <button onclick="openAuth('admin')" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-lg px-3 py-1.5 backdrop-blur-sm transition text-sm font-bold shadow-lg">
+            <div class="flex items-center gap-3">
+                <button onclick="openAuth('admin')" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-lg px-3 py-1.5 backdrop-blur-md transition text-xs font-bold">
                     <i class="fa-solid fa-shield-halved text-secondary"></i>
-                    <span class="hidden sm:inline">الإدارة</span>
+                    <span>الإدارة</span>
                 </button>
-
-                <div class="relative w-px h-6 bg-white/20"></div>
-
-                <select id="langSwitcher" onchange="changeLanguage(this.value)" class="bg-white/10 text-white border border-white/30 rounded-lg px-3 py-1.5 outline-none backdrop-blur-sm cursor-pointer hover:bg-white/20 transition text-sm font-bold shadow-lg">
-                    <option value="ar" class="text-slate-800">العربية</option>
-                    <option value="en" class="text-slate-800">English</option>
-                    <option value="fr" class="text-slate-800">Français</option>
+                <select id="langSwitcher" class="bg-white/10 text-white border border-white/30 rounded-lg px-2 py-1.5 outline-none backdrop-blur-md cursor-pointer text-xs font-bold appearance-none text-center">
+                    <option value="ar" class="text-slate-800">AR</option>
+                    <option value="en" class="text-slate-800">EN</option>
                 </select>
             </div>
         </nav>
 
-        <div class="container mx-auto px-8 text-center relative z-10 mt-6 mb-12">
-            <span class="inline-block py-1.5 px-5 rounded-full bg-black/20 text-secondary font-bold text-sm mb-6 border border-secondary/30 backdrop-blur-md shadow-lg" data-i18n="badge">
+        <div class="container mx-auto px-6 text-center relative z-10 mt-4 md:mt-8 mb-10">
+            <span class="inline-block py-1.5 px-5 rounded-full bg-white/5 text-secondary font-bold text-xs md:text-sm mb-6 border border-secondary/30 backdrop-blur-md shadow-lg">
                 ✨ المنصة الأولى للعمل المجتمعي
             </span>
-            <h1 class="text-5xl lg:text-7xl font-black text-white leading-tight mb-4 drop-shadow-2xl">
-                <span data-i18n="hero_title_1">بوابتك للأثر..</span> <span class="text-secondary" data-i18n="hero_title_2">ولمستقبلك المهني</span>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-4 drop-shadow-2xl">
+                بوابتك للأثر.. <span class="text-secondary block md:inline mt-2 md:mt-0">ولمستقبلك المهني</span>
             </h1>
-            <p class="text-lg text-purple-100 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium" data-i18n="hero_desc">
-                حدد صفتك أدناه للدخول إلى المنصة. صور حية، توثيق معتمد، ومجتمع ينبض بالعطاء.
+            <p class="text-base md:text-lg text-purple-200 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium mt-4">
+                حدد صفتك أدناه للدخول إلى المنصة.
             </p>
         </div>
 
-        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl relative z-10">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-center items-center gap-6 md:gap-8 max-w-4xl relative z-10">
             
-            <div onclick="openAuth('volunteer')" class="group relative h-96 rounded-[2rem] overflow-hidden cursor-pointer shadow-2xl hover:-translate-y-3 transition duration-300 border-2 border-white/10 hover:border-secondary">
-                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=800&q=80" alt="Volunteer" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                <div class="absolute inset-0 img-overlay transition duration-300 group-hover:bg-primaryDark/70"></div>
-                <div class="absolute inset-0 p-8 flex flex-col justify-end items-center text-center pb-12">
-                    <div class="w-24 h-24 bg-secondary/95 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(251,191,36,0.4)] group-hover:scale-110 transition duration-300">
-                        <i class="fa-solid fa-hand-holding-heart text-5xl text-primaryDark"></i>
+            <div onclick="openAuth('volunteer')" class="w-full md:w-1/2 group relative h-72 md:h-96 rounded-3xl overflow-hidden cursor-pointer shadow-2xl hover:-translate-y-2 transition duration-300 border-2 border-white/10 hover:border-secondary">
+                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=800&q=80" alt="Volunteer" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <div class="absolute inset-0 img-overlay transition duration-300 group-hover:bg-primaryDark/80"></div>
+                <div class="absolute inset-0 p-6 flex flex-col justify-end items-center text-center pb-8">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-secondary/95 backdrop-blur-sm rounded-full flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(251,191,36,0.4)] group-hover:scale-110 transition duration-300">
+                        <i class="fa-solid fa-hand-holding-heart text-3xl md:text-4xl text-primaryDark"></i>
                     </div>
-                    <h3 class="text-4xl font-black text-white mb-2" data-i18n="vol_title">دخول كـ متطوع</h3>
-                    <p class="text-white/80 font-bold mt-2">ابنِ سيرتك الذاتية ووثق ساعاتك</p>
+                    <h3 class="text-2xl md:text-3xl font-black text-white mb-1">دخول كـ متطوع</h3>
+                    <p class="text-white/80 font-bold text-xs md:text-sm">ابنِ سيرتك الذاتية ووثق ساعاتك</p>
                 </div>
             </div>
 
-            <div onclick="openAuth('association')" class="group relative h-96 rounded-[2rem] overflow-hidden cursor-pointer shadow-2xl hover:-translate-y-3 transition duration-300 border-2 border-white/10 hover:border-secondary">
-                <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=800&q=80" alt="Association" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                <div class="absolute inset-0 img-overlay transition duration-300 group-hover:bg-primaryDark/70"></div>
-                <div class="absolute inset-0 p-8 flex flex-col justify-end items-center text-center pb-12">
-                    <div class="w-24 h-24 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(255,255,255,0.2)] group-hover:scale-110 transition duration-300">
-                        <i class="fa-solid fa-building-ngo text-5xl text-primary"></i>
+            <div onclick="openAuth('association')" class="w-full md:w-1/2 group relative h-72 md:h-96 rounded-3xl overflow-hidden cursor-pointer shadow-2xl hover:-translate-y-2 transition duration-300 border-2 border-white/10 hover:border-secondary">
+                <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=800&q=80" alt="Association" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <div class="absolute inset-0 img-overlay transition duration-300 group-hover:bg-primaryDark/80"></div>
+                <div class="absolute inset-0 p-6 flex flex-col justify-end items-center text-center pb-8">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(255,255,255,0.2)] group-hover:scale-110 transition duration-300">
+                        <i class="fa-solid fa-building-ngo text-3xl md:text-4xl text-primary"></i>
                     </div>
-                    <h3 class="text-4xl font-black text-white mb-2" data-i18n="assoc_title">دخول كـ جمعية</h3>
-                    <p class="text-white/80 font-bold mt-2">انشر فرصك وأدر المتطوعين باحترافية</p>
+                    <h3 class="text-2xl md:text-3xl font-black text-white mb-1">دخول كـ جمعية</h3>
+                    <p class="text-white/80 font-bold text-xs md:text-sm">انشر فرصك وأدر المتطوعين</p>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <div id="authModal" class="fixed inset-0 bg-dark/80 backdrop-blur-md z-50 hidden-app flex items-center justify-center p-4" dir="rtl">
-        <div class="bg-primaryDark rounded-3xl shadow-2xl w-full max-w-md overflow-hidden relative border border-white/10">
-            <button onclick="closeAuth()" class="absolute top-4 rtl:left-4 ltr:right-4 text-white/50 hover:text-white transition text-2xl z-10" id="closeBtn">
-                <i class="fa-solid fa-xmark"></i>
+    <div id="authModal" class="fixed inset-0 bg-dark/90 backdrop-blur-md z-50 hidden-app flex items-center justify-center p-4" dir="rtl">
+        <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-md overflow-hidden relative">
+            <button onclick="closeAuth()" class="absolute top-5 rtl:left-5 ltr:right-5 text-slate-400 hover:text-red-500 transition text-2xl z-10 w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-sm"></i>
             </button>
-            <div class="text-center pt-8 pb-4">
-                <i id="authIcon" class="text-5xl text-secondary mb-3"></i>
-                <h2 id="authTitle" class="text-2xl font-black text-white"></h2>
+            <div class="text-center pt-10 pb-6 bg-slate-50 border-b border-slate-100">
+                <i id="authIcon" class="text-5xl text-primary mb-3"></i>
+                <h2 id="authTitle" class="text-2xl font-black text-slate-800"></h2>
             </div>
-            <div id="tabsContainer" class="flex border-b border-white/10 mb-6 px-6">
-                <button id="tabLogin" onclick="switchTab(true)" class="tab-btn active flex-1 py-3 font-bold border-b-4 transition">تسجيل دخول</button>
-                <button id="tabSignup" onclick="switchTab(false)" class="tab-btn flex-1 py-3 font-bold border-b-4 transition">حساب جديد</button>
+            <div id="tabsContainer" class="flex border-b border-slate-200">
+                <button id="tabLogin" onclick="switchTab(true)" class="tab-btn active flex-1 py-4 font-bold border-b-4 transition text-slate-500">تسجيل دخول</button>
+                <button id="tabSignup" onclick="switchTab(false)" class="tab-btn flex-1 py-4 font-bold border-b-4 transition text-slate-500">حساب جديد</button>
             </div>
-            <div class="px-8 pb-8 space-y-4">
+            <div class="p-8 space-y-4">
                 <div id="nameField" class="hidden-app">
-                    <input type="text" id="inpName" class="w-full bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-xl py-3 px-4 focus:outline-none focus:border-secondary transition" placeholder="الاسم الكامل / اسم الجهة">
+                    <label class="block text-xs font-bold text-slate-500 mb-1">الاسم الكامل / الجهة</label>
+                    <input type="text" id="inpName" class="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl py-3 px-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
                 </div>
                 <div>
-                    <input type="email" id="inpEmail" class="w-full bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-xl py-3 px-4 focus:outline-none focus:border-secondary transition" placeholder="البريد الإلكتروني">
+                    <label class="block text-xs font-bold text-slate-500 mb-1">البريد الإلكتروني</label>
+                    <input type="email" id="inpEmail" class="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl py-3 px-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
                 </div>
                 <div>
-                    <input type="password" id="inpPass" class="w-full bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-xl py-3 px-4 focus:outline-none focus:border-secondary transition" placeholder="كلمة المرور">
+                    <label class="block text-xs font-bold text-slate-500 mb-1">كلمة المرور</label>
+                    <input type="password" id="inpPass" class="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl py-3 px-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
                 </div>
-                <div id="authMsg" class="text-center text-sm font-bold mt-2"></div>
-                <button onclick="processAuth()" id="submitBtn" class="w-full mt-6 bg-secondary text-primaryDark font-black py-4 rounded-xl hover:bg-yellow-400 transition shadow-[0_4px_15px_rgba(251,191,36,0.3)] text-lg">
+                <div id="authMsg" class="text-center text-sm font-bold mt-2 h-4"></div>
+                <button onclick="processAuth()" id="submitBtn" class="w-full mt-4 bg-primary text-white font-black py-4 rounded-xl hover:bg-primaryDark transition shadow-lg text-lg">
                     دخول
                 </button>
             </div>
@@ -151,7 +141,8 @@
             currentRole = role;
             document.getElementById('authModal').classList.remove('hidden-app');
             let iconEl = document.getElementById('authIcon');
-            iconEl.className = role === 'volunteer' ? "fa-solid fa-hand-holding-heart text-5xl text-secondary mb-3" : (role === 'association' ? "fa-solid fa-building-ngo text-5xl text-secondary mb-3" : "fa-solid fa-shield-halved text-5xl text-secondary mb-3");
+            
+            iconEl.className = role === 'volunteer' ? "fa-solid fa-hand-holding-heart text-5xl text-secondary mb-3" : (role === 'association' ? "fa-solid fa-building-ngo text-5xl text-primary mb-3" : "fa-solid fa-shield-halved text-5xl text-slate-800 mb-3");
 
             if(role === 'admin') {
                 document.getElementById('tabsContainer').classList.add('hidden-app');
@@ -173,12 +164,16 @@
             document.getElementById('submitBtn').innerText = isLogin ? 'الدخول للمنصة' : 'إنشاء الحساب';
 
             if(isLogin) {
-                document.getElementById('tabLogin').classList.add('active');
-                document.getElementById('tabSignup').classList.remove('active');
+                document.getElementById('tabLogin').classList.add('active', 'text-primary');
+                document.getElementById('tabLogin').style.borderColor = '#6b21a8';
+                document.getElementById('tabSignup').classList.remove('active', 'text-primary');
+                document.getElementById('tabSignup').style.borderColor = 'transparent';
                 document.getElementById('nameField').classList.add('hidden-app');
             } else {
-                document.getElementById('tabSignup').classList.add('active');
-                document.getElementById('tabLogin').classList.remove('active');
+                document.getElementById('tabSignup').classList.add('active', 'text-primary');
+                document.getElementById('tabSignup').style.borderColor = '#6b21a8';
+                document.getElementById('tabLogin').classList.remove('active', 'text-primary');
+                document.getElementById('tabLogin').style.borderColor = 'transparent';
                 document.getElementById('nameField').classList.remove('hidden-app');
             }
         }
@@ -190,7 +185,7 @@
 
             if(!email || !pass) {
                 document.getElementById('authMsg').innerText = "يرجى تعبئة الحقول المطلوبة";
-                document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-red-400";
+                document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-red-500";
                 return;
             }
 
@@ -207,12 +202,12 @@
                     window.location.href = user.role === 'volunteer' ? 'volunteer.html' : 'association.html';
                 } else {
                     document.getElementById('authMsg').innerText = "البيانات غير صحيحة أو الحساب غير موجود";
-                    document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-red-400";
+                    document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-red-500";
                 }
             } else {
                 if(users.find(u => u.email === email)) {
                     document.getElementById('authMsg').innerText = "هذا البريد مستخدم مسبقاً";
-                    document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-red-400";
+                    document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-red-500";
                     return;
                 }
                 let newUser = { id: Date.now(), role: currentRole, name: name, email: email, pass: pass, hours: 0 };
@@ -221,7 +216,7 @@
                 localStorage.setItem('majaz_session', JSON.stringify(newUser));
                 
                 document.getElementById('authMsg').innerText = "تم الإنشاء! جاري الدخول...";
-                document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-green-400";
+                document.getElementById('authMsg').className = "text-center text-sm font-bold mt-2 text-emerald-500";
                 
                 setTimeout(() => {
                     window.location.href = newUser.role === 'volunteer' ? 'volunteer.html' : 'association.html';
