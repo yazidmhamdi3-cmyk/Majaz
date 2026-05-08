@@ -14,7 +14,7 @@
                     fontFamily: { sans: ['Cairo', 'sans-serif'] },
                     colors: {
                         primary: '#4c1d95',
-                        secondary: '#f59e0b',
+                        secondary: '#f59e0b', // الأصفر من شعارك
                         dark: '#1e1b4b'
                     }
                 }
@@ -32,12 +32,10 @@
 
     <div class="flex-1 flex flex-col relative overflow-hidden pb-12 bg-gradient-to-br from-[#2e1065] via-[#581c87] to-[#1e1b4b]">
         
-        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-secondary rounded-full blur-[120px] opacity-20 z-0 pointer-events-none"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-[#8b5cf6] rounded-full blur-[120px] opacity-20 z-0 pointer-events-none"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-secondary rounded-full blur-[130px] opacity-20 z-0 pointer-events-none"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#8b5cf6] rounded-full blur-[130px] opacity-15 z-0 pointer-events-none"></div>
 
-        <div class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none overflow-hidden">
-            <img src="logo.jpg" alt="Majaz Logo" class="w-[120%] md:w-[60%] opacity-10 object-contain blur-[2px]">
-        </div>
+        <div class="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style="background-image: url('logo.jpg'); background-size: 150px; background-repeat: repeat;"></div>
 
         <nav class="w-full px-6 py-5 flex justify-between items-center relative z-10">
             <div class="flex items-center gap-2">
@@ -46,26 +44,26 @@
             </div>
             
             <div class="flex items-center gap-3">
-                <button onclick="openAuth('admin')" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-lg px-3 py-1.5 backdrop-blur-md transition text-xs font-bold">
+                <button onclick="openAuth('admin')" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-lg px-3 py-1.5 backdrop-blur-md transition text-xs font-bold shadow-lg">
                     <i class="fa-solid fa-shield-halved text-secondary"></i>
                     <span>الإدارة</span>
                 </button>
-                <select id="langSwitcher" class="bg-white/10 text-white border border-white/30 rounded-lg px-2 py-1.5 outline-none backdrop-blur-md cursor-pointer text-xs font-bold appearance-none text-center">
+                <select id="langSwitcher" class="bg-white/10 text-white border border-white/30 rounded-lg px-2 py-1.5 outline-none backdrop-blur-md cursor-pointer text-xs font-bold appearance-none text-center shadow-lg">
                     <option value="ar" class="text-slate-800">AR</option>
                     <option value="en" class="text-slate-800">EN</option>
                 </select>
             </div>
         </nav>
 
-        <div class="container mx-auto px-6 text-center relative z-10 mt-4 md:mt-8 mb-10">
-            <span class="inline-block py-1.5 px-5 rounded-full bg-white/5 text-secondary font-bold text-xs md:text-sm mb-6 border border-secondary/30 backdrop-blur-md shadow-lg">
+        <div class="container mx-auto px-6 text-center relative z-10 mt-6 md:mt-10 mb-10 md:mb-12">
+            <span class="inline-block py-1.5 px-5 rounded-full bg-black/10 text-secondary font-bold text-xs md:text-sm mb-6 border border-secondary/30 backdrop-blur-md shadow-lg">
                 ✨ المنصة الأولى للعمل المجتمعي
             </span>
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-4 drop-shadow-2xl">
                 بوابتك للأثر.. <span class="text-secondary block md:inline mt-2 md:mt-0">ولمستقبلك المهني</span>
             </h1>
-            <p class="text-base md:text-lg text-purple-200 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium mt-4">
-                حدد صفتك أدناه للدخول إلى المنصة.
+            <p class="text-base md:text-lg text-purple-100 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium mt-4">
+                حدد صفتك أدناه للدخول إلى المنصة. صور حية، توثيق معتمد، ومجتمع ينبض بالعطاء.
             </p>
         </div>
 
@@ -74,7 +72,7 @@
             <div onclick="openAuth('volunteer')" class="w-full md:w-1/2 group relative h-72 md:h-96 rounded-3xl overflow-hidden cursor-pointer shadow-2xl hover:-translate-y-2 transition duration-300 border-2 border-white/10 hover:border-secondary">
                 <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=800&q=80" alt="Volunteer" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500">
                 <div class="absolute inset-0 img-overlay transition duration-300 group-hover:bg-primaryDark/80"></div>
-                <div class="absolute inset-0 p-6 flex flex-col justify-end items-center text-center pb-8">
+                <div class="absolute inset-0 p-6 flex flex-col justify-end items-center text-center pb-10">
                     <div class="w-16 h-16 md:w-20 md:h-20 bg-secondary/95 backdrop-blur-sm rounded-full flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(251,191,36,0.4)] group-hover:scale-110 transition duration-300">
                         <i class="fa-solid fa-hand-holding-heart text-3xl md:text-4xl text-primaryDark"></i>
                     </div>
@@ -86,12 +84,12 @@
             <div onclick="openAuth('association')" class="w-full md:w-1/2 group relative h-72 md:h-96 rounded-3xl overflow-hidden cursor-pointer shadow-2xl hover:-translate-y-2 transition duration-300 border-2 border-white/10 hover:border-secondary">
                 <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=800&q=80" alt="Association" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500">
                 <div class="absolute inset-0 img-overlay transition duration-300 group-hover:bg-primaryDark/80"></div>
-                <div class="absolute inset-0 p-6 flex flex-col justify-end items-center text-center pb-8">
+                <div class="absolute inset-0 p-6 flex flex-col justify-end items-center text-center pb-10">
                     <div class="w-16 h-16 md:w-20 md:h-20 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(255,255,255,0.2)] group-hover:scale-110 transition duration-300">
                         <i class="fa-solid fa-building-ngo text-3xl md:text-4xl text-primary"></i>
                     </div>
                     <h3 class="text-2xl md:text-3xl font-black text-white mb-1">دخول كـ جمعية</h3>
-                    <p class="text-white/80 font-bold text-xs md:text-sm">انشر فرصك وأدر المتطوعين</p>
+                    <p class="text-white/80 font-bold text-xs md:text-sm">انشر فرصك وأدر المتطوعين باحترافية</p>
                 </div>
             </div>
 
@@ -99,7 +97,7 @@
     </div>
 
     <div id="authModal" class="fixed inset-0 bg-dark/90 backdrop-blur-md z-50 hidden-app flex items-center justify-center p-4" dir="rtl">
-        <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-md overflow-hidden relative">
+        <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-md overflow-hidden relative border border-slate-100">
             <button onclick="closeAuth()" class="absolute top-5 rtl:left-5 ltr:right-5 text-slate-400 hover:text-red-500 transition text-2xl z-10 w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center">
                 <i class="fa-solid fa-xmark text-sm"></i>
             </button>
@@ -107,25 +105,25 @@
                 <i id="authIcon" class="text-5xl text-primary mb-3"></i>
                 <h2 id="authTitle" class="text-2xl font-black text-slate-800"></h2>
             </div>
-            <div id="tabsContainer" class="flex border-b border-slate-200">
-                <button id="tabLogin" onclick="switchTab(true)" class="tab-btn active flex-1 py-4 font-bold border-b-4 transition text-slate-500">تسجيل دخول</button>
-                <button id="tabSignup" onclick="switchTab(false)" class="tab-btn flex-1 py-4 font-bold border-b-4 transition text-slate-500">حساب جديد</button>
+            <div id="tabsContainer" class="flex border-b border-slate-200 mb-6 px-6 bg-slate-50">
+                <button id="tabLogin" onclick="switchTab(true)" class="tab-btn active flex-1 py-4 font-bold border-b-4 transition">تسجيل دخول</button>
+                <button id="tabSignup" onclick="switchTab(false)" class="tab-btn flex-1 py-4 font-bold border-b-4 transition">حساب جديد</button>
             </div>
-            <div class="p-8 space-y-4">
+            <div class="px-8 pb-8 space-y-4">
                 <div id="nameField" class="hidden-app">
-                    <label class="block text-xs font-bold text-slate-500 mb-1">الاسم الكامل / الجهة</label>
-                    <input type="text" id="inpName" class="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl py-3 px-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
+                    <label class="block text-xs font-bold text-slate-500 mb-1">الاسم الكامل / اسم الجهة</label>
+                    <input type="text" id="inpName" class="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary transition" placeholder="مثال: يوسف كمال">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 mb-1">البريد الإلكتروني</label>
-                    <input type="email" id="inpEmail" class="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl py-3 px-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
+                    <input type="email" id="inpEmail" class="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary transition" placeholder="example@email.com">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 mb-1">كلمة المرور</label>
-                    <input type="password" id="inpPass" class="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl py-3 px-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
+                    <input type="password" id="inpPass" class="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary transition" placeholder="••••••••">
                 </div>
-                <div id="authMsg" class="text-center text-sm font-bold mt-2 h-4"></div>
-                <button onclick="processAuth()" id="submitBtn" class="w-full mt-4 bg-primary text-white font-black py-4 rounded-xl hover:bg-primaryDark transition shadow-lg text-lg">
+                <div id="authMsg" class="text-center text-sm font-bold mt-2"></div>
+                <button onclick="processAuth()" id="submitBtn" class="w-full mt-6 bg-primary text-white font-black py-4 rounded-xl hover:bg-primaryDark transition shadow-lg text-lg">
                     دخول
                 </button>
             </div>
@@ -141,8 +139,7 @@
             currentRole = role;
             document.getElementById('authModal').classList.remove('hidden-app');
             let iconEl = document.getElementById('authIcon');
-            
-            iconEl.className = role === 'volunteer' ? "fa-solid fa-hand-holding-heart text-5xl text-secondary mb-3" : (role === 'association' ? "fa-solid fa-building-ngo text-5xl text-primary mb-3" : "fa-solid fa-shield-halved text-5xl text-slate-800 mb-3");
+            iconEl.className = role === 'volunteer' ? "fa-solid fa-hand-holding-heart text-5xl text-secondary mb-3" : (role === 'association' ? "fa-solid fa-building-ngo text-5xl text-primary mb-3" : "fa-solid fa-shield-halved text-5xl text-dark mb-3");
 
             if(role === 'admin') {
                 document.getElementById('tabsContainer').classList.add('hidden-app');
@@ -164,16 +161,12 @@
             document.getElementById('submitBtn').innerText = isLogin ? 'الدخول للمنصة' : 'إنشاء الحساب';
 
             if(isLogin) {
-                document.getElementById('tabLogin').classList.add('active', 'text-primary');
-                document.getElementById('tabLogin').style.borderColor = '#6b21a8';
-                document.getElementById('tabSignup').classList.remove('active', 'text-primary');
-                document.getElementById('tabSignup').style.borderColor = 'transparent';
+                document.getElementById('tabLogin').classList.add('active');
+                document.getElementById('tabSignup').classList.remove('active');
                 document.getElementById('nameField').classList.add('hidden-app');
             } else {
-                document.getElementById('tabSignup').classList.add('active', 'text-primary');
-                document.getElementById('tabSignup').style.borderColor = '#6b21a8';
-                document.getElementById('tabLogin').classList.remove('active', 'text-primary');
-                document.getElementById('tabLogin').style.borderColor = 'transparent';
+                document.getElementById('tabSignup').classList.add('active');
+                document.getElementById('tabLogin').classList.remove('active');
                 document.getElementById('nameField').classList.remove('hidden-app');
             }
         }
